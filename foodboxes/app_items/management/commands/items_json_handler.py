@@ -9,9 +9,23 @@ class Command(BaseCommand):
     help = 'create objects for model Item'
 
     def handle(self, *args, **kwargs):
+        def parser_images(responses):
+            responses_json = responses.json()
+
+            for response in responses_json:
+                url_img = response['image']
+                name_img = url_img.split('/')[-1]
+                print(name_img)
+
+                p = requests.get(url_img)
+                out = open('./media/' + name_img, "wb")
+                out.write(p.content)
+                out.close()
+
         foodboxes = requests.get('https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json')
 
         if foodboxes:
+            parser_images(foodboxes)
             foodboxes_json = foodboxes.json()
 
             for foodbox in foodboxes_json:
