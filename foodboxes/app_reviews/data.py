@@ -1,5 +1,5 @@
 statusChoices = [
-    ('new_on_moderation', 'новый на модерации'),
+    ('new', 'новый на модерации'),
     ('published', 'опубликован'),
     ('hidden', 'скрыт')
 ]
