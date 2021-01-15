@@ -3,7 +3,7 @@ import requests
 from django.core.management.base import BaseCommand
 
 from app_items.models import Item
-
+from foodboxes.settings import MEDIA_ITEMS_IMAGE_DIR
 
 class Command(BaseCommand):
     help = 'create objects for model Item'
@@ -15,10 +15,10 @@ class Command(BaseCommand):
             for response in responses_json:
                 url_img = response['image']
                 name_img = url_img.split('/')[-1]
-                print(name_img)
+                print(name_img, 'successfully downloaded to ./media/items_images')
 
                 p = requests.get(url_img)
-                out = open('./media/' + name_img, "wb")
+                out = open('./media/' + MEDIA_ITEMS_IMAGE_DIR + '/' + name_img, "wb")
                 out.write(p.content)
                 out.close()
 
@@ -29,19 +29,17 @@ class Command(BaseCommand):
             foodboxes_json = foodboxes.json()
 
             for foodbox in foodboxes_json:
-                item = Item.objects.filter(id=foodbox['id']).first()
-                if not item:
-                    new_item = Item.objects.create(
-                        title=foodbox['name'],
-                        description=foodbox['description'],
-                        image=foodbox['image'],
-                        weight=foodbox['weight_grams'],
-                        price=foodbox['price']
-                    )
-                    self.stdout.write(f"The item {new_item.title} is created")
-                else:
-                    item.save()
-                    self.stdout.write(f"The item {item.title} updated")
+                values_for_update = {}
+
+                values_for_update['title'] = foodbox['title']
+                values_for_update['description'] = foodbox['description']
+                values_for_update['image'] = MEDIA_ITEMS_IMAGE_DIR + '/' + foodbox['image'].split('/')[-1]
+                values_for_update['weight'] = foodbox['weight_grams']
+                values_for_update['price'] = foodbox['price']
+
+                user, created = Item.objects.update_or_create(
+                    id=foodbox['id'], defaults=values_for_update
+                )
 
         elif foodboxes.status_code == 408:
             return self.stdout.write("408 REQUEST TIMEOUT")
