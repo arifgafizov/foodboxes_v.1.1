@@ -1,3 +1,4 @@
+import os
 import requests
 
 from django.core.management.base import BaseCommand
@@ -25,6 +26,7 @@ class Command(BaseCommand):
 
         foodboxes = requests.get('https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json')
 
+        os.makedirs('./media/items_images', exist_ok=True)
         if foodboxes:
             parser_images(foodboxes)
             foodboxes_json = foodboxes.json()
