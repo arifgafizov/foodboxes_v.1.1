@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from app_items.models import Item
 from foodboxes.settings import MEDIA_ITEMS_IMAGE_DIR
 
+
 class Command(BaseCommand):
     help = 'create objects for model Item'
 

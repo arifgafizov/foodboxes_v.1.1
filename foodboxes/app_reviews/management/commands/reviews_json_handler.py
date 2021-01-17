@@ -29,9 +29,6 @@ class Command(BaseCommand):
                     )
                 except ValidationError:
                     print('Value has an invalid format. It must be in YYYY-MM-DD HH:MM')
-                except:
-                    print("Что-то пошло не так...")
-
 
         elif reviews.status_code == 408:
             return self.stdout.write("408 REQUEST TIMEOUT")
