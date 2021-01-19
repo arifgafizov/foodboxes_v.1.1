@@ -1,28 +1,13 @@
-import requests
-
-from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.viewsets import ViewSet
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
+from app_items.models import ItemSerializer, Item
 
-@api_view(http_method_names=['GET'])
-def function_based(request, pk):
-    foodboxes = requests.get('https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json')
-    if foodboxes:
-        foodboxes_json = foodboxes.json()
-        response = {}
-        for foodbox in foodboxes_json:
-            if foodbox['id'] == pk:
-                response['id'] = pk
-                response['title'] = foodbox['title']
-                response['description'] = foodbox['description']
-                response['image'] = foodbox['image']
-                response['weight'] = foodbox['weight_grams']
-                response['price'] = foodbox['price']
-        return Response(response)
 
-    elif foodboxes.status_code == 408:
-        return Response(status=status.HTTP_408_REQUEST_TIMEOUT)
-
-    else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class ItemViewset(ViewSet):
+    def retrieve(self, request, pk=None):
+        queryset = Item.objects.all()
+        item = get_object_or_404(queryset, pk=pk)
+        serializer = ItemSerializer(item)
+        return Response(serializer.data)
