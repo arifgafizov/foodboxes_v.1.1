@@ -1,6 +1,6 @@
-from app_items.views import ItemViewset
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from app_items.views import function_based
 
-router = DefaultRouter()
-router.register('items', ItemViewset, basename='function-based')
-urlpatterns = router.urls
+urlpatterns = [
+    path('<int:pk>/', function_based, name='function-based,'),
+]

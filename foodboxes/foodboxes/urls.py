@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 api_urlpatterns = [
-    path('', include('app_items.urls')),
+    path('items/', include('app_items.urls')),
 ]
 
 urlpatterns = [
