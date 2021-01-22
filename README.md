@@ -1,5 +1,6 @@
 # foodboxes_v.1.1
 Django REST training project
+
 Инструкция:
 1) Создать проект в PyCharm
 2) Выполнить git clone
