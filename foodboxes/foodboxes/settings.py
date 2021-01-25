@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'app_items',
-    'app_reviews',
-    'app_users'
+    'items',
+    'reviews',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -127,4 +127,4 @@ MEDIA_URL = '/media/'
 
 MEDIA_ITEMS_IMAGE_DIR = 'items_images'
 
-AUTH_USER_MODEL = 'app_users.User'
+AUTH_USER_MODEL = 'users.User'
