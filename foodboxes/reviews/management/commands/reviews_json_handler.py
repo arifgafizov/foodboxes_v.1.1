@@ -3,7 +3,7 @@ import requests
 from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 
-from app_reviews.models import Review
+from reviews.models import Review
 
 
 class Command(BaseCommand):
@@ -18,7 +18,7 @@ class Command(BaseCommand):
                 values_for_update = {}
 
                 values_for_update['text'] = review['content']
-                values_for_update['created_at'] = review['created_at ']
+                values_for_update['created_at'] = review['created_at']
                 values_for_update['published_at'] = review['published_at']
                 values_for_update['status'] = review['status']
                 values_for_update['author_id'] = review['author']
