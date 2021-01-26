@@ -1,24 +1,31 @@
 import requests
 
+from django.contrib.auth.hashers import make_password
 from django.core.management.base import BaseCommand
 
 from users.models import User
 
 
 class Command(BaseCommand):
-    help = 'create objects for model User'
+    help = 'create/update objects for model User'
 
     def handle(self, *args, **kwargs):
-        recipients = requests.get('https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/recipients.json')
-        if recipients:
+        def get_username_from_email(email):
+            username = email.split('@')[0]
+            return username
+
+        url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/recipients.json'
+        recipients = requests.get(url)
+
+        try:
             recipients_json = recipients.json()
 
             for recipient in recipients_json:
                 values_for_update = {}
 
                 values_for_update['email'] = recipient['email']
-                values_for_update['username'] = recipient['email'].split('@')[0]
-                values_for_update['password'] = recipient['password']
+                values_for_update['username'] = get_username_from_email(recipient['email'])
+                values_for_update['password'] = make_password(recipient['password'])
                 values_for_update['first_name'] = recipient['info']['name']
                 values_for_update['last_name'] = recipient['info']['surname']
                 values_for_update['middle_name'] = recipient['info']['patronymic']
@@ -29,8 +36,5 @@ class Command(BaseCommand):
                     id=recipient['id'], defaults=values_for_update
                 )
 
-        elif recipients.status_code == 408:
-            return self.stdout.write("408 REQUEST TIMEOUT")
-
-        else:
-            return self.stdout.write("404 NOT FOUND")
+        except requests.exceptions.RequestException as er:
+             print("Some Ambiguous Exception:", er)
