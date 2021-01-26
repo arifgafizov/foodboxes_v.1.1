@@ -34,12 +34,12 @@ class Command(BaseCommand):
             foodboxes_json = foodboxes.json()
 
             for foodbox in foodboxes_json:
-                path_to_image = settings.MEDIA_ITEMS_IMAGE_DIR + '/' + foodbox['image'].split('/')[-1]
+                path_image = settings.MEDIA_ITEMS_IMAGE_DIR + '/' + foodbox['image'].split('/')[-1]
                 values_for_update = {}
 
                 values_for_update['title'] = foodbox['title']
                 values_for_update['description'] = foodbox['description']
-                values_for_update['image'] = path_to_image
+                values_for_update['image'] = path_image
                 values_for_update['weight'] = foodbox['weight_grams']
                 values_for_update['price'] = foodbox['price']
 

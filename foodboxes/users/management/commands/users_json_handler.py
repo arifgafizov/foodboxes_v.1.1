@@ -6,6 +6,9 @@ from django.core.management.base import BaseCommand
 from users.models import User
 
 
+url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/recipients.json'
+
+
 class Command(BaseCommand):
     help = 'create/update objects for model User'
 
@@ -14,7 +17,6 @@ class Command(BaseCommand):
             username = email.split('@')[0]
             return username
 
-        url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/recipients.json'
         recipients = requests.get(url)
 
         try:
@@ -37,4 +39,4 @@ class Command(BaseCommand):
                 )
 
         except requests.exceptions.RequestException as er:
-             print("Some Ambiguous Exception:", er)
+            print("Some Ambiguous Exception:", er)
