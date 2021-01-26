@@ -7,11 +7,12 @@ from reviews.models import Review
 
 
 class Command(BaseCommand):
-    help = 'create objects for model Review'
+    help = 'create/update objects for model Review'
 
     def handle(self, *args, **kwargs):
-        reviews = requests.get('https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/reviews.json')
-        if reviews:
+        url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/reviews.json'
+        reviews = requests.get(url)
+        try:
             reviews_json = reviews.json()
 
             for review in reviews_json:
@@ -30,8 +31,5 @@ class Command(BaseCommand):
                 except ValidationError:
                     print('Value has an invalid format. It must be in YYYY-MM-DD HH:MM')
 
-        elif reviews.status_code == 408:
-            return self.stdout.write("408 REQUEST TIMEOUT")
-
-        else:
-            return self.stdout.write("404 NOT FOUND")
+        except requests.exceptions.RequestException as er:
+            print("Some Ambiguous Exception:", er)
