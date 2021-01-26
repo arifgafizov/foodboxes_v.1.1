@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from foodboxes.settings import MEDIA_ITEMS_IMAGE_DIR
+from django.conf import settings
 
 
 class Item(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to=MEDIA_ITEMS_IMAGE_DIR, default=None, null=True)
+    image = models.ImageField(upload_to=settings.MEDIA_ITEMS_IMAGE_DIR, default=None, null=True)
     weight = models.IntegerField()
     price = models.DecimalField(max_digits=13, decimal_places=2)
 
