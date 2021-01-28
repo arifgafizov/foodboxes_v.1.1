@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 class Item(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=128)
     description = models.TextField()
     image = models.ImageField(upload_to=settings.MEDIA_ITEMS_IMAGE_DIR, default=None, null=True)
     weight = models.IntegerField()
