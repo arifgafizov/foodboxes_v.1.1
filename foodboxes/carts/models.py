@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext as _
 
 from items.models import Item
 from users.models import User
@@ -13,3 +14,10 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=13, decimal_places=2)
+
+    class Meta:
+        verbose_name = _('cart')
+        verbose_name_plural = _('carts')
+
+    def __str__(self):
+        return 'cart of ' + self.user.last_name
