@@ -1,6 +1,9 @@
 from django.urls import path
-from items.views import function_based
+
+from .views import ItemList, ItemDetail
+
 
 urlpatterns = [
-    path('<int:pk>/', function_based, name='function-based,'),
+    path('items/', ItemList.as_view(), name='items_list'),
+    path('items/<int:pk>/', ItemDetail.as_view(), name='items_detail'),
 ]
