@@ -9,7 +9,7 @@ class Cart(models.Model):
     items = models.ManyToManyField(to=Item, through="CartItem", related_name='carts')
     user = models.ForeignKey(User, related_name='carts', on_delete=models.CASCADE)
 
-    def cart(self):
+    def total_cost(self):
         return 'stuff'
 
 class CartItem(models.Model):
@@ -17,6 +17,9 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=13, decimal_places=2)
+
+    def total_price(self):
+        return 'stuff'
 
     class Meta:
         verbose_name = _('cart')
