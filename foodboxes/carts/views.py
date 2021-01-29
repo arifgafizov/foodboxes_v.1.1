@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView
 
-# Create your views here.
+from .models import Cart
+from .serializers import CartSerializer
+
+
+class CartList(ListAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
