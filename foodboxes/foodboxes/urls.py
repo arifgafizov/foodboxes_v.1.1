@@ -16,6 +16,7 @@ schema_view = get_schema_view(
 
 api_urlpatterns = [
     path('', include('items.urls')),
+    path('', include('carts.urls')),
 #    path('', include('users.urls')),
 ]
 
