@@ -17,6 +17,7 @@ class ItemList(ListAPIView):
     filterset_fields = ['price']
     ordering = ['price']
 
+
 class ItemDetail(RetrieveAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer

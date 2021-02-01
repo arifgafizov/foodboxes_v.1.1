@@ -11,6 +11,7 @@ class CartSerializer(ModelSerializer):
         fields = ['id', 'items', 'total_cost']
         read_only_fields = ['id', 'items']
 
+
 class CartItemSerializer(ModelSerializer):
     item = ItemSerializer(many=True)
     car = CartSerializer(many=True)
