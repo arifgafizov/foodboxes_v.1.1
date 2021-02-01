@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 
 from .models import User
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import UserSerializer
 
 
 class CurrentUserRetrieveUpdateView(RetrieveUpdateAPIView):
@@ -19,9 +19,10 @@ class CurrentUserRetrieveUpdateView(RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
-class RegisterUser(CreateAPIView):
+
+class RegisterUserView(CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = RegisterSerializer
+    serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -30,6 +31,7 @@ class RegisterUser(CreateAPIView):
         data = serializer.data
 
         return Response(data, status=status.HTTP_201_CREATED)
+
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
