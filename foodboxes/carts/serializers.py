@@ -14,9 +14,13 @@ class CartSerializer(ModelSerializer):
 
 class CartItemSerializer(ModelSerializer):
     item = ItemSerializer(many=True)
-    car = CartSerializer(many=True)
+    cart = CartSerializer(many=True)
 
     class Meta:
         model = CartItem
-        fields = ['id', 'item', 'quantity', 'price', 'car', 'total_price']
+        fields = ['id', 'item', 'quantity', 'price', 'cart', 'total_price']
         read_only_fields = ['id', 'price']
+        extra_kwargs = {
+            'quantity': {'required': False},
+        }
+
