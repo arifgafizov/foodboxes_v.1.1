@@ -17,11 +17,11 @@ schema_view = get_schema_view(
 api_urlpatterns = [
     path('', include('items.urls')),
     path('', include('carts.urls')),
-#    path('', include('users.urls')),
+    path('users/', include('users.urls')),
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(api_urlpatterns)),
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0)),  # noqa
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0)),
 ]
