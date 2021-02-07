@@ -17,9 +17,8 @@ class Command(BaseCommand):
             username = email.split('@')[0]
             return username
 
-        recipients = requests.get(url)
-
         try:
+            recipients = requests.get(url)
             recipients_json = recipients.json()
 
             for recipient in recipients_json:

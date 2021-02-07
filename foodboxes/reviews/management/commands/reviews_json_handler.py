@@ -11,8 +11,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/reviews.json'
-        reviews = requests.get(url)
+
         try:
+            reviews = requests.get(url)
             reviews_json = reviews.json()
 
             for review in reviews_json:

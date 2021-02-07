@@ -24,12 +24,12 @@ class Command(BaseCommand):
                 out.write(p.content)
                 out.close()
 
-        url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json'
-        foodboxes = requests.get(url)
-
         os.makedirs('./media/items_images', exist_ok=True)
 
+        url = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json'
+
         try:
+            foodboxes = requests.get(url)
             parser_images(foodboxes)
             foodboxes_json = foodboxes.json()
 
