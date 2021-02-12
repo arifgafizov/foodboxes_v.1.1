@@ -1,13 +1,19 @@
-from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 
 from .models import Cart, CartItem
 from .paginations import CartItemLimitOffsetPagination
 from .serializers import CartSerializer, CartItemSerializer
 
 
-class CartList(ListAPIView):
+class CartList(RetrieveAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+    #permission_classes = [IsAuthenticated]
+    #authentication_classes = (TokenAuthentication,)
+    lookup_field = 'user_id'
+
+    def get_object(self):
+        return self.request.user
 
 
 class CartItemList(ListCreateAPIView):

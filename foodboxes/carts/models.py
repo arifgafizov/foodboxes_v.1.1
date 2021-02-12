@@ -1,19 +1,17 @@
-from decimal import Decimal
-
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 from items.models import Item
-from users.models import User
 
 
 class Cart(models.Model):
     items = models.ManyToManyField(to=Item, through="CartItem")
-    user = models.ForeignKey(User, related_name='carts', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='carts', on_delete=models.CASCADE)
 
     @property
     def total_cost(self):
-        return self.cart_items.price * self.cart_items.quantity
+        return self.cart_items.price.data * self.cart_items.quantity.data
 
 
 class CartItem(models.Model):
@@ -31,5 +29,4 @@ class CartItem(models.Model):
 
     @property
     def total_price(self):
-        result = self.price * Decimal(self.quantity)
-        return result
+        return self.price * self.quantity

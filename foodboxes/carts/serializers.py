@@ -1,15 +1,20 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
+from rest_framework import serializers
 
 from .models import Cart, CartItem
 from items.serializers import ItemSerializer
 
 
-class CartSerializer(ModelSerializer):
+class CartSerializer(HyperlinkedModelSerializer):
+
+    user = serializers.HyperlinkedIdentityField(
+        view_name='users',
+        lookup_field='username'
+    )
 
     class Meta:
         model = Cart
-        fields = ['id', 'items', 'total_cost']
-        read_only_fields = ['id', 'items']
+        fields = ['user', 'id', 'items', 'total_cost']
 
 
 class CartItemSerializer(ModelSerializer):
@@ -20,7 +25,3 @@ class CartItemSerializer(ModelSerializer):
         model = CartItem
         fields = ['id', 'item', 'quantity', 'price', 'cart', 'total_price']
         read_only_fields = ['id', 'price']
-        extra_kwargs = {
-            'quantity': {'required': False},
-        }
-
