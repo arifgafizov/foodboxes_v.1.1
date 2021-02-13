@@ -15,7 +15,7 @@ class OrderListSerializer(ModelSerializer):
 
 class OrderDetailSerializer(ModelSerializer):
     cart = CartSerializer()
-    recipient = UserSerializer
+    recipient = UserSerializer()
 
     class Meta:
         model = Order
