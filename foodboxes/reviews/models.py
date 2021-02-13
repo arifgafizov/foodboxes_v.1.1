@@ -18,4 +18,4 @@ class Review(models.Model):
         verbose_name_plural = _('reviews')
 
     def __str__(self):
-        return 'retriew of ' + self.author.last_name
+        return 'review of ' + self.author.last_name
