@@ -1,16 +1,11 @@
-from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
 from .models import Cart, CartItem
 from items.serializers import ItemSerializer
 
 
-class CartSerializer(HyperlinkedModelSerializer):
-
-    user = serializers.HyperlinkedIdentityField(
-        view_name='users',
-        lookup_field='username'
-    )
+class CartSerializer(ModelSerializer):
+    items = ItemSerializer(many=True)
 
     class Meta:
         model = Cart
