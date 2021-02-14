@@ -20,3 +20,11 @@ class OrderDetailSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'cart', 'status', 'recipient', 'total_cost', 'address', 'delivery_at', 'created_at']
+
+
+class OrderUpdateSerializer(ModelSerializer):
+    cart = CartSerializer()
+
+    class Meta:
+        model = Order
+        fields = ['id', 'cart', 'status', 'address', 'delivery_at']
