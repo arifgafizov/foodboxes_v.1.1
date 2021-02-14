@@ -1,21 +1,15 @@
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
 from django.utils.decorators import method_decorator
-from django.core.cache import cache
 from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie, vary_on_headers
+from django.views.decorators.vary import vary_on_cookie
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.response import Response
-from rest_framework.utils import json
+
 
 from .models import Item
 from .paginations import ItemPageNumberPagination
 from .serializers import ItemSerializer
 from .filters import ItemFilter
-from users.models import User
 
 
 class ItemList(ListAPIView):
