@@ -4,5 +4,5 @@ from .views import ReviewListCreate
 
 
 urlpatterns = [
-    path('', ReviewListCreate.as_view(), name='reviews_list'),
+    path('', ReviewListCreate.as_view(), name='reviews-list'),
 ]

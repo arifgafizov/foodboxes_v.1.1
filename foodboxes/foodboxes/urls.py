@@ -15,11 +15,11 @@ schema_view = get_schema_view(
 )
 
 api_urlpatterns = [
-    path('items/', include('items.urls')),
+    path('items/', include(('items.urls', 'items'), namespace='items')),
     path('carts/', include('carts.urls')),
     path('users/', include('users.urls')),
-    path('orders/', include('orders.urls')),
-    path('reviews/', include('reviews.urls')),
+    path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
+    path('reviews/', include(('reviews.urls', 'reviews'), namespace='reviews')),
 ]
 
 urlpatterns = [
