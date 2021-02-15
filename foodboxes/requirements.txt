@@ -19,10 +19,12 @@ Pillow==8.1.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
 pyparsing==2.4.7
+python-memcached==1.59
 pytz==2020.5
 requests==2.25.1
 ruamel.yaml==0.16.12
 ruamel.yaml.clib==0.2.2
+six==1.15.0
 sqlparse==0.4.1
 uritemplate==3.0.1
 urllib3==1.26.2
